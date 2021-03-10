@@ -62,6 +62,11 @@ const restaurant = {
       `Order received! ${this.starterMenu[starterIndex]} and ${this.mainMenu[mainIndex]} will be delivered to ${address} at ${time}!`
     );
   },
+  orderPizza: function (mainIngredient, ...otherIngredients) {
+    console.log(
+      `main ingredient is: ${mainIngredient}, others are: ${otherIngredients}`
+    );
+  },
 
   openingHours: {
     thu: {
@@ -99,14 +104,5 @@ add(8, 2, 5, 7, 9, 8);
 const x = [23, 5, 7];
 add(...x);
 
-//with REST we can group function parameters
-(orderPizza = function (mainIngredient, ...otherIngredients) {
-  console.log(
-    `main ingredient is: ${mainIngredient}, others are: ${otherIngredients}`
-  );
-}),
-  restaurant.orderPizza('mushrooms', 'onion', 'olives', 'spinach'); //main ingredient is: mushrooms, others are: onion,olives,spinach
-
-// IN GENERAL:
-//use SPRED where values are separated by commas
-//use REST where variables are separated by commas
+restaurant.orderPizza('mushrooms', 'onion', 'olives', 'spinach');
+restaurant.orderPizza('mushrooms');
