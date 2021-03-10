@@ -36,14 +36,21 @@ const guest1 = restaurant.numGuests ? restaurant.numGuests : 10;
 console.log(guest1); // WRONG WAY
 
 //Short Circuiting with OR operator
-// HOW IT WORKS: It skips the fals and falsy values and returns the first true
+// HOW IT WORKS: It skips the fals and falsy values and returns the first true WARNING! IT ALSO SKIPS 0
 const guest2 = restaurant.numGuests || 10;
 console.log(guest2); // CORRECT WAY
 
+//To exclude 0 value from short circuiting
+restaurant.numGuests = 0;
+const guest3 = restaurant.numGuests || 10;
+console.log('3', guest3); // null : zero is also skipped
+
+const guest4 = restaurant.numGuests ?? 10; // The Nullish Coalescing Operator
+console.log(guest4); // 0 : Skips only nullish values (undefined, null)
+
 //Short Circuiting with AND operator
 // HOW IT WORKS: It skips the true and truthy values and returns the first fals
-
 console.log('Hello' && 23 && null && 'jonas'); // jonas
 
 //I asked the reason to use this (bec. same error with and without this ----- waiting for response)
-restaurant.orderPizza && restaurant.orderPizza('mushrooms', 'spinach');
+// restaurant.orderPizza && restaurant.orderPizza('mushrooms', 'spinach');
