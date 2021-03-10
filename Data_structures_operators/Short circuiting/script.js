@@ -52,5 +52,8 @@ console.log(guest4); // 0 : Skips only nullish values (undefined, null)
 // HOW IT WORKS: It skips the true and truthy values and returns the first fals
 console.log('Hello' && 23 && null && 'jonas'); // jonas
 
+//If none is fals, it returns the last value
+console.log('hello' && 'hi'); // hi
+
 //I asked the reason to use this (bec. same error with and without this ----- waiting for response)
 // restaurant.orderPizza && restaurant.orderPizza('mushrooms', 'spinach');

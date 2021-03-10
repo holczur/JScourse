@@ -69,5 +69,38 @@ const game = {
   },
 };
 
+// Task#1
 const [players1, players2] = game.players;
 console.log(players1, players2);
+
+//Task#2
+const [gk, ...fieldPlayers] = players1;
+console.log(gk, fieldPlayers);
+
+//Task#3
+const allPlayers = [...players1, ...players2];
+console.log(allPlayers);
+
+//Task#4
+const players1Final = [...players1, 'Thiago', 'Couthino', 'Perisic'];
+console.log(players1Final);
+
+//Task#5
+const { team1, x: draw, team2 } = game.odds;
+console.log(team1, draw, team2);
+
+//Task#6
+const printGoals = function (...playerNames) {
+  console.log(`${playerNames.length} goals in total by: ${playerNames}`);
+};
+printGoals('Davies', 'Müller', 'Lewandowsky', 'Kimmich');
+printGoals(...game.scored);
+
+//Task#7
+console.log(
+  `${
+    (team1 < team2 && game.team1) || (team2 < team1 && team2)
+  } is more likely to win`
+);
+
+//(team1 < team2 && game.team1) will return game.team1 value
