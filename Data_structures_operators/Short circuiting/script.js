@@ -56,4 +56,4 @@ console.log('Hello' && 23 && null && 'jonas'); // jonas
 console.log('hello' && 'hi'); // hi
 
 //I asked the reason to use this (bec. same error with and without this ----- waiting for response)
-// restaurant.orderPizza && restaurant.orderPizza('mushrooms', 'spinach');
+restaurant.orderPizza && restaurant.orderPizza('mushrooms', 'spinach');
