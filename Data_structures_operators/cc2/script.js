@@ -85,3 +85,8 @@ for (const [team, odd] of Object.entries(game.odds)) {
 }
 
 // BONUS TASK
+const scorers = {};
+for (const player of game.scored) {
+  scorers[player] = (scorers[player] || 0) + 1;
+}
+console.log(scorers);
