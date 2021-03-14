@@ -38,3 +38,17 @@ const days = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
 //console.log(restaurant.openingHours.mon.open); //Error --> If the 'mon' property doesn't exist we'll get an error bec of we want to use a property of undefined
 console.log(restaurant.openingHours.mon?.open); //undefined --> Putting a '?' befor the '.'  results in that ES6 will check, if property exist, and returns undefined, if not.
 console.log(restaurant.openingHours?.mon?.open); // It can be nested as well.
+
+// EXAMPLE
+for (const day of days) {
+  const open = restaurant.openingHours[day]?.open ?? 'closed';
+  console.log(`On ${day}, we open at ${open}`);
+}
+
+// on METHODES: Is the method exist in the object? Y: call it. N: do stg else
+console.log(restaurant.order?.(0, 1) ?? 'Method does not exist'); // ["Focaccia", "Pasta"]
+console.log(restaurant.orderStg?.(0, 1) ?? 'Method does not exist'); // "Method doees not exist"
+
+//on ARRAYS: We can chack if an array is empty or not.
+const users = [{ name: 'Jonas', email: 'hello@jonas.io' }];
+console.log(users[0]?.name ?? 'user array is empty'); //Does users array 1st element exist? Y: return name property. N: 'user array is empty'
