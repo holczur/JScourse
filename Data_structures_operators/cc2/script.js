@@ -87,6 +87,10 @@ for (const [team, odd] of Object.entries(game.odds)) {
 // BONUS TASK
 const scorers = {};
 for (const player of game.scored) {
-  scorers[player] = (scorers[player] || 0) + 1;
+  scorers[player]++ || (scorers[player] = 1);
+  // If Lewanowski hadn't score before set his score to one:
+  //scorers[player]++ // NaN is a falsy value so the operator will skip to the second part: (scorers[player] = 1) // 1: So the score for the first timer will be one
+  //Lewanowski now had a score and he scored again:
+  //scorers[player]++ // 2: The first part of the short circuitung is true now, so it can run. score[player]++ is the same as score[player] = score[player] + 1
 }
 console.log(scorers);
