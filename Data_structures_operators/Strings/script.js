@@ -49,3 +49,34 @@ console.log(plane.includes('A320'));
 console.log(plane.includes('Boeing'));
 console.log(plane.startsWith('Airbus'));
 console.log(plane.endsWith('neo'));
+
+//split
+const [firstName, lastName] = 'Jonas Schmedtmann'.split(' ');
+console.log(firstName, lastName);
+
+//join
+const newNamwe = ['Mr.', firstName, lastName.toUpperCase()].join(' ');
+console.log(newNamwe); //Mr. Jonas SCHMEDTMANN
+
+//padding
+const msg = 'Go to gat 23!';
+console.log(msg.padStart(25, '+'));
+console.log(msg.padStart(25, '+').length);
+
+const maskCreditCard = function (number) {
+  const str = number + '';
+  const last = str.slice(-4);
+  return last.padStart(str.length, '*');
+};
+
+console.log(maskCreditCard(5463758798));
+console.log(maskCreditCard(54637587984356));
+
+//repeat
+const planesInLine = function (n) {
+  console.log(`There are ${n} planes in line ${'✈'.repeat(n)}`);
+};
+
+planesInLine(3);
+planesInLine(5);
+planesInLine(10);
