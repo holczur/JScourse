@@ -50,14 +50,21 @@ const textarea = document.querySelector('textarea');
 const camelCase = function (arr) {
   const low = [];
   const correct = [];
+
+  //transform input elements: no whitespace, all lowercase, split when (first) underscore occures
+  //fill up low array with transformed elements.
   for (a of arr) {
     low.push(a.trim().toLowerCase().split('_'));
   }
+
+  // Change each second items first letter in subarray to uppercase
+  //fill up correct array with modified elements
   for (let i = 0; i < low.length; i++) {
     low[i][1] = low[i][1][0].toUpperCase() + low[i][1].slice(1);
     correct.push(low[i][0] + low[i][1]);
   }
 
+  //Print as many checkmarks afeter words, as their number is in the line.
   for (let i = 0; i < correct.length; i++) {
     console.log(correct[i].padEnd(20) + '✅'.repeat(i + 1));
   }
