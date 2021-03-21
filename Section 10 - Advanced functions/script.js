@@ -56,3 +56,41 @@ checkIn(flight, jonas);
 console.log(jonas.passport); // random number
 
 //first-class and higher-order functions
+/* first-class function is a feature that means that functionas are values.
+        - We can store them in variables // const add = (a, b) => a + b;
+        - or inside an object // methods
+        - and we can pass functions to other functions, // addEventlistener
+        - even return functions from other ones
+        - and we can call methods on functions // exampleObject.item.bind(someOtherObject)
+
+        A coding language may has or has not these utility (for example c++ has not, javaScript has)
+        So this is just a concept.
+        */
+
+// Callback functions
+const oneWord = function (str) {
+  return str.replaceAll(' ', '').toLowerCase();
+};
+
+const upperFirstWord = function (str) {
+  const [first, ...others] = str.split(' ');
+  return [first.toUpperCase(), ...others].join(' ');
+};
+
+const transformer = function (str, fn) {
+  // HIGHER-ORDER FUNCTION --> THIS FUNCTION ACCEPTS ANOTHER FUNCTION AS A PARAMETER
+  //These kind of functions are called: CALLBACK FUNCTIONS
+  console.log(`Original string: ${str}`);
+  console.log(`Transformed string: ${fn(str)}`);
+  console.log(`Transformed by: ${fn.name}`);
+};
+
+transformer('Javascript is the best!', upperFirstWord);
+transformer('Javascript is the best!', oneWord);
+
+//other example: event listener as higher-order function, its parameter is the CALLBACK function
+const high5 = function () {
+  console.log('🖐');
+};
+
+document.body.addEventListener('click', high5);
