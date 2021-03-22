@@ -113,3 +113,38 @@ greeterHey('Steven')
 
 //There's no need to save the returned function as a variable
 greet('Hello')('Jonas') //greet(first fn parameter)(returned fn parameter)
+
+
+
+//THE CALL AND APPLY METHODS
+const lufthansa = {
+  airline: 'Lufthansa',
+  iataCode: 'LH',
+  bookings: [],
+  book(flightNum, name) {
+    console.log(
+      `${name} booked a seat on ${this.airline} flight ${this.iataCode}${flightNum}`
+      );
+    this.bookings.push(
+      {flight: `${this.iataCode}${flightNum}`, name})
+  }
+
+  
+}
+
+lufthansa.book(239, 'Jonas Schmedtmann') //bookings: [{flight: "LH239", name: "Jonas Schmedtmann"}]
+lufthansa.book(635, 'Marta Blumwerk')
+/*
+lufthansa.bookings = [{flight: "LH239", name: "Jonas Schmedtmann"},
+{flight: "LH635", name: "Marta Blaumwerk"}]
+*/
+console.log(lufthansa.bookings)
+
+const eurowings = {
+  name: 'Eurowings',
+  iataCode: 'EW',
+  bookings: [],
+
+}
+
+const book = lufthans.book;
