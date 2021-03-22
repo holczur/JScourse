@@ -94,3 +94,22 @@ const high5 = function () {
 };
 
 document.body.addEventListener('click', high5);
+
+
+//FUNCTIONS RETURNING FUNCTIONS
+const greet = function(greeting) {
+  return function(name) {
+    console.log(`${greeting} ${name}`)
+  }
+}
+//with arrow functions
+const greetArr = greeting => name =>
+  console.log(`${greeting} ${name}`)
+greetArr('Yo')('Ma')
+
+const greeterHey = greet('Hey'); //greeterHey is equal with the returned greet fn
+greeterHey('Jonas')
+greeterHey('Steven')
+
+//There's no need to save the returned function as a variable
+greet('Hello')('Jonas') //greet(first fn parameter)(returned fn parameter)
