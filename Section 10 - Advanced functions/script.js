@@ -95,57 +95,50 @@ const high5 = function () {
 
 document.body.addEventListener('click', high5);
 
-
 //FUNCTIONS RETURNING FUNCTIONS
-const greet = function(greeting) {
-  return function(name) {
-    console.log(`${greeting} ${name}`)
-  }
-}
+const greet = function (greeting) {
+  return function (name) {
+    console.log(`${greeting} ${name}`);
+  };
+};
 //with arrow functions
-const greetArr = greeting => name =>
-  console.log(`${greeting} ${name}`)
-greetArr('Yo')('Ma')
+const greetArr = greeting => name => console.log(`${greeting} ${name}`);
+greetArr('Yo')('Ma');
 
 const greeterHey = greet('Hey'); //greeterHey is equal with the returned greet fn
-greeterHey('Jonas')
-greeterHey('Steven')
+greeterHey('Jonas');
+greeterHey('Steven');
 
 //There's no need to save the returned function as a variable
-greet('Hello')('Jonas') //greet(first fn parameter)(returned fn parameter)
-
-
+greet('Hello')('Jonas'); //greet(first fn parameter)(returned fn parameter)
 
 //THE CALL AND APPLY METHODS
 const lufthansa = {
   airline: 'Lufthansa',
   iataCode: 'LH',
   bookings: [],
-// enhancede object literal
+  // enhancede object literal
   book(flightNum, name) {
     console.log(
       `${name} booked a seat on ${this.airline} flight ${this.iataCode}${flightNum}`
-      );
-    this.bookings.push(
-      {flight: `${this.iataCode}${flightNum}`, name})
+    );
+    this.bookings.push({ flight: `${this.iataCode}${flightNum}`, name });
+  },
+};
 
-    }  
-}
-
-lufthansa.book(239, 'Jonas Schmedtmann') //bookings: [{flight: "LH239", name: "Jonas Schmedtmann"}]
-lufthansa.book(635, 'Marta Blumwerk')
+lufthansa.book(239, 'Jonas Schmedtmann'); //bookings: [{flight: "LH239", name: "Jonas Schmedtmann"}]
+lufthansa.book(635, 'Marta Blumwerk');
 /*
 lufthansa.bookings = [{flight: "LH239", name: "Jonas Schmedtmann"},
 {flight: "LH635", name: "Marta Blaumwerk"}]
 */
-console.log(lufthansa.bookings)
+console.log(lufthansa.bookings);
 
 const eurowings = {
   airline: 'Eurowings',
   iataCode: 'EW',
   bookings: [],
-
-}
+};
 
 const book = lufthansa.book; // we want to use the method for another airline. Instead copying the whole method and paste into eurowings object (which is clearly not a best practice) we can store the method in a variable
 
@@ -153,61 +146,63 @@ const book = lufthansa.book; // we want to use the method for another airline. I
 //book(23, 'Sarah Williams')
 
 //The CALL METHOD will call the book method and set the THIS keyword to point to the defined object's property
-book.call(eurowings, 23, 'Sarah Williams')
-book.call(lufthansa, 239, 'Mary Clearwater')
+book.call(eurowings, 23, 'Sarah Williams');
+book.call(lufthansa, 239, 'Mary Clearwater');
 
 const swiss = {
   airline: 'Swiss Lines',
   iataCode: 'LX',
-  bookings: [],  
-}
-book.call(swiss, 19, 'Mary Clearwater')
-console.log(eurowings)
-console.log(lufthansa)
-console.log(swiss)
+  bookings: [],
+};
+book.call(swiss, 19, 'Mary Clearwater');
+console.log(eurowings);
+console.log(lufthansa);
+console.log(swiss);
 
 // APPLY METHOD - not used nowdays
 const flightData = [583, 'George Cooper'];
-book.apply(swiss, flightData)
+book.apply(swiss, flightData);
 
-book.call(swiss, ...flightData) //is the same
+book.call(swiss, ...flightData); //is the same
 
 // BIND METHOD - doesn't call the function immediately, instead it returns a new function, where THIS keyword is bound to whatever we passed
-const bookEW = book.bind(eurowings)
-const bookLH = book.bind(lufthansa)
-const bookLX = book.bind(swiss)
-bookEW(57, 'Steve Williams')
+const bookEW = book.bind(eurowings);
+const bookLH = book.bind(lufthansa);
+const bookLX = book.bind(swiss);
+bookEW(57, 'Steve Williams');
 
 //this method can define not only the THIS keyword, but also the parameters
-const bookEW23 = book.bind(eurowings, 23)
-bookEW23('Peter Mann') //This is a common pattern, called: PARTIAL APLICATION
+const bookEW23 = book.bind(eurowings, 23);
+bookEW23('Peter Mann'); //This is a common pattern, called: PARTIAL APLICATION
 
 // With EVENTLISTENERS
 lufthansa.planes = 300;
-lufthansa.buyPlane = function() {
+lufthansa.buyPlane = function () {
   console.log(this);
-  this.planes++
+  this.planes++;
   console.log(this.planes);
-}
+};
 
-document.querySelector('.buy').addEventListener('click', lufthansa.buyPlane) // "this" will point to the button, bec. this keyword in an event handler allways referrs the element that handles the event. Result: NaN
+document.querySelector('.buy').addEventListener('click', lufthansa.buyPlane); // "this" will point to the button, bec. this keyword in an event handler allways referrs the element that handles the event. Result: NaN
 
 // So we need BIND METHOD to return a new function, where referrencce of THIS is defined:
-document.querySelector('.buy').addEventListener('click', lufthansa.buyPlane.bind(lufthansa))
+document
+  .querySelector('.buy')
+  .addEventListener('click', lufthansa.buyPlane.bind(lufthansa));
 
 //BIND METHOD for PARTIAL APPLICATION
 const addTax = (rate, value) => value + value * rate;
-console.log(addTax(0.1, 200))
+console.log(addTax(0.1, 200));
 
-const addVAT = addTax.bind(null, 0.27) // THIS keyword is not present so there's no need to define its reference
-console.log(addVAT(1000))
+const addVAT = addTax.bind(null, 0.27); // THIS keyword is not present so there's no need to define its reference
+console.log(addVAT(1000));
 
 // mini-challenge
-const adddTextRate = function(rate) {
-  return function(value) {
-    return value + value * rate
-  }
-}
-const addVAT2 = adddTextRate(0.27)
-console.log(addVAT2(100))
-console.log(addVAT2(4526))
+const adddTextRate = function (rate) {
+  return function (value) {
+    return value + value * rate;
+  };
+};
+const addVAT2 = adddTextRate(0.27);
+console.log(addVAT2(100));
+console.log(addVAT2(4526));
