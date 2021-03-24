@@ -206,3 +206,14 @@ const adddTextRate = function (rate) {
 const addVAT2 = adddTextRate(0.27);
 console.log(addVAT2(100));
 console.log(addVAT2(4526));
+
+//Immediately Invoked Function Expresson
+//We can immediately run a function without store it in a variable. That function also will dissappear after it is completed and we can never run it again.
+
+// IIFE syntax: wrap the function into () and run it with another (). Do not save it into any variable!
+(function () {
+  console.log('this will never run again');
+})();
+
+// It works with arrow functions as well
+(() => console.log('This will ALSO never run again'))();
