@@ -18,13 +18,14 @@ booker();
 /*
 All function have acces to their variable environmet and that acces has more priority than the scope.
 So "booker" fn can acces "passengerCount" even after "secureBooking" runs and returns a new function (after that "secureBooking" fn popps out from the call stack = appr. it no longer exist).
-That's because in this case a CLOSURE was born to grant acces for the variable environment, and JS will automatically try to find variables in CLOSURE if they are not found in the global scope.
+That's because in this case a CLOSURE was born to grant acces for the variable environment, and JS will automatically try to find variables in CLOSURE first if they are not there it will look for them in the global scope.
 Closures are not created by us manually. This is a JS feature that happens automatically. We cannot acces closed-over variables explicitly. A closure is not a tangiable JS object.
 
 With other words:
   - A CLOSURE GIVES ACCESS TO ALL THE VARIABLES OF ITS PARENT FUNCTION, EVEN AFTER THAT PARENT FUNCTION HAS RETURNED. THE FUNCTION KEEPS A REFERENCE TO ITS OUTER SCOPE, WHICH PRESERVES THE SCOPE CHAIN THROUGHOUT TIME.
   - A CLOSURE IS LIKE A BACKPACK THAT A FUNCTION CARRIES AROUND WHEREVER IT GOES. THIS BACKPACK HAS ALL THE VARIABLES THAT WERE PRESENT IN THE ENVIRONMENT WHERE THE FUNCTION WAS CREATED
-  - ONLY THE FUNCTION HAS ACCES TO ITS BACKPACK, WE 
+  - ONLY THE FUNCTION HAS ACCES TO ITS BACKPACK, WE CAN ONLY LOOK ITS CONTENT
+  - JS WILL LOOK FOR VARIABLES IN THE CLOSURE AT FIRST, ONLY AFTER THEY WERE NOT PRESENT, WILL IT LOOK IN THE GLOBAL SCOPE.
 */
 
 // We can look into the backpack
@@ -74,3 +75,24 @@ boardPassengers(210, 3);
       We are now boarding all 210 passengers
       There are 3 groups, each with 70 passengers
       */
+
+//CODING CHALLENGE
+/*
+This is more of a thinking challenge than a coding challenge �
+Your tasks:
+1. Take the IIFE below and at the end of the function, attach an event listener that
+changes the color of the selected h1 element ('header') to blue, each time
+the body element is clicked. Do not select the h1 element again!
+2. And now explain to yourself (or someone around you) why this worked! Take all
+the time you need. Think about when exactly the callback function is executed,
+and what that means for the variables involved in this example.
+GOOD LUCK �
+*/
+
+(function () {
+  const header = document.querySelector('h1');
+  header.style.color = 'red';
+  document.body.addEventListener('click', () => {
+    header.style.color = 'blue';
+  });
+})();
