@@ -26,3 +26,25 @@ Test data:
 Hints: Use tools from all lectures in this section so far �
 GOOD LUCK �
 */
+const checkDogs = function (dogsJulia, dogsKate) {
+  const juliaCorrect = dogsJulia.slice(1, -2);
+  console.log(juliaCorrect);
+  const totalDogs = juliaCorrect.concat(dogsKate);
+  console.log(totalDogs);
+  totalDogs.forEach(function (dog, i) {
+    const isAdult =
+      dog >= 3
+        ? `Dog number ${i + 1} is an adult and is ${dog} years old`
+        : `Dog number ${i + 1} is still a puppy🐶`;
+
+    console.log(isAdult);
+  });
+};
+
+const testJuliaOne = [3, 5, 2, 12, 7];
+const testJuliaTwo = [9, 16, 6, 8, 3];
+const testKateOne = [4, 1, 15, 8, 3];
+const testKateTwo = [10, 5, 6, 1, 4];
+
+checkDogs(testJuliaOne, testKateOne);
+checkDogs(testJuliaTwo, testKateTwo);
