@@ -74,3 +74,48 @@ currenciesUnique.forEach(function (value, _, map) {
   //Sets do not have keys nor indexes, so the second parameter will be equal with the first (bec.of technical reasons). Underscore for a variable name means that the variable is totally useless.
   console.log(`${value}: ${value}`);
 });
+
+///////////////////MAP, FILTER, REDUCE METHODS//////////////////////
+
+//MAP
+// loops an array and appliee operation for it and gives a naew array as a result
+console.log('---------------MAP METHOD-------------------');
+
+const eurToUsd = 1.1;
+const movementsUsd = movements.map(function (mov) {
+  return mov * eurToUsd;
+});
+
+console.log(movements);
+console.log(movementsUsd);
+
+//Same with arrow function
+const movementsUsdArrow = movements.map(mov => mov * eurToUsd);
+console.log(movements);
+console.log(movementsUsd);
+
+//(current item, index, array) syntax also works here
+
+/* THIS IS NOT "DRY" - refactored version under this
+const movementsDescriptions = movements.map((mov, i) => {
+  if (mov > 0) {
+    return `Movement ${i + 1}: You deposited ${mov}.`;
+  } else {
+    return `Movement ${i + 1}: You withdrew ${Math.abs(mov)}`;
+  }
+});
+*/
+
+const movementsDescriptions = movements.map(
+  (mov, i) =>
+    `Movement ${i + 1}: You ${mov > 0 ? 'deposited' : 'withdrew'} ${Math.abs(
+      mov
+    )}`
+);
+
+console.log(movementsDescriptions);
+//FILTER
+// It returns a new array containing the array elements that passed a specified condition
+
+//REDUCE
+// It reduces all elements down to one single value (e.g.: adding all elements together)
