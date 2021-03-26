@@ -72,3 +72,17 @@ const displayMovement = function (movements) {
   });
 };
 displayMovement(account1.movements);
+
+const createUserNames = function (accs) {
+  accs.forEach(function (acc) {
+    // Take each account
+    acc.username = acc.owner // create a key called username
+      .toLowerCase() // for value convert .owner property to lowercase
+      .split(' ') // split it where space occure
+      .map(name => name[0]) // return each word's first letter
+      .join(''); // merge them
+  });
+};
+
+createUserNames(accounts);
+console.log(accounts); //stw;
