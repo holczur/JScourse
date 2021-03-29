@@ -114,8 +114,30 @@ const movementsDescriptions = movements.map(
 );
 
 console.log(movementsDescriptions);
+
 //FILTER
 // It returns a new array containing the array elements that passed a specified condition
+console.log('-----------------FILTER METHOD------------------');
+const deposites = movements.filter(mov => mov > 0);
+const withdrawals = movements.filter(mov => mov < 0);
+
+console.log(deposites);
+console.log(withdrawals);
 
 //REDUCE
 // It reduces all elements down to one single value (e.g.: adding all elements together)
+console.log('-----------REDUCE METHOD--------------');
+console.log(movements);
+//const balance = movements.reduce(function (acc, cur, i) {
+//console.log(`Iteration no${i}: ${acc}`);
+//return acc + cur;
+//}, 100); //Iteration star from base 100 (initial accumulator value)
+
+const balance = movements.reduce((acc, cur, i, arr) => cur + acc, 100);
+//[200, 450, -400, 3000, -650, -130, 70, 1300];
+//1.) acc = 0, cur = 200 -> (0 + 200)
+//2.) acc = 200, cur = 450 -> (200 + 450)
+//3.) acc = 650, curr = -400 -> (650 + (-400))
+// and so on
+
+console.log(balance);
