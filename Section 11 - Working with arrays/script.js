@@ -133,7 +133,7 @@ console.log(movements);
 //return acc + cur;
 //}, 100); //Iteration star from base 100 (initial accumulator value)
 
-const balance = movements.reduce((acc, cur, i, arr) => cur + acc, 100);
+const balance = movements.reduce((acc, cur, i, arr) => cur + acc, 100); //i and arr are not needed, 100 is the base(not required)
 //[200, 450, -400, 3000, -650, -130, 70, 1300];
 //1.) acc = 0, cur = 200 -> (0 + 200)
 //2.) acc = 200, cur = 450 -> (200 + 450)
@@ -141,3 +141,13 @@ const balance = movements.reduce((acc, cur, i, arr) => cur + acc, 100);
 // and so on
 
 console.log(balance);
+
+//Maximum value
+const max = movements.reduce((acc, mov) => {
+  if (acc > mov) {
+    return acc;
+  } else {
+    return mov;
+  }
+}, movements[0]);
+console.log(max);
