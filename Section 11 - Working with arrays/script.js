@@ -78,7 +78,7 @@ currenciesUnique.forEach(function (value, _, map) {
 ///////////////////MAP, FILTER, REDUCE METHODS//////////////////////
 
 //MAP
-// loops an array and appliee operation for it and gives a naew array as a result
+// loops an array and applie operation for it and gives a naew array as a result
 console.log('---------------MAP METHOD-------------------');
 
 const eurToUsd = 1.1;
@@ -151,3 +151,10 @@ const max = movements.reduce((acc, mov) => {
   }
 }, movements[0]);
 console.log(max);
+
+//array methods can be chained togeather as long, as the result is an array
+const totalDepositsUSD = movements
+  .filter(mov => mov > 0) //return all elements that are > 0
+  .map(mov => mov * eurToUsd) //multiply filtered array elements with eurToUsd and return result as a new array
+  .reduce((acc, mov) => acc + mov, 0); //sum up the multiplied array and return the amount.
+console.log(totalDepositsUSD);
