@@ -196,6 +196,7 @@ console.log('---------------- FIND METHOD -------------------');
 const firstWithDrawal = movements.find(mov => mov < 0);
 console.log(firstWithDrawal);
 
+//Find one element
 console.log(accounts);
 const account = accounts.find(acc => acc.owner === 'Jessica Davis');
 console.log(account);
