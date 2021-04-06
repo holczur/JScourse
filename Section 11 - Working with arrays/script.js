@@ -211,7 +211,13 @@ console.log(anyDeposits);
 console.log(account4.movements.every(mov => mov > 0)); //true
 
 //separate callback
-const deposit = mov => mov > 0;
+const deposit = mov => mov > 0; //we can save the argument as a variable to reuse it in several methods. This way, if we have to change the condition it could be done by changing the variable.
 console.log(movements.some(deposit));
 console.log(movements.every(deposit));
 console.log(movements.filter(deposit));
+
+console.log('-------------------FLAT and FLATMAP-------------------------');
+const arr3 = [[1, 2, 3], [4, 5, 6], 7, 8];
+const arrDeep = [[[1, 2], 3], [4, [5, 6]], 7, 8];
+console.log(arr3.flat());
+console.log(arrDeep.flat(2)); //this method's argument defines how many levels would be flat
