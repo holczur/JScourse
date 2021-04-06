@@ -200,3 +200,9 @@ console.log(firstWithDrawal);
 console.log(accounts);
 const account = accounts.find(acc => acc.owner === 'Jessica Davis');
 console.log(account);
+
+console.log('---------------------SOME AND EVERY----------------------');
+console.log(movements);
+//returns a boolean
+const anyDeposits = movements.some(mov => mov > 5000);
+console.log(anyDeposits);
