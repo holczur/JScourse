@@ -243,3 +243,36 @@ const overallBalance2 = accounts
   .reduce((acc, mov) => acc + mov);
 
 console.log(overallBalance);
+
+console.log('--------------------------SORT--------------------------');
+//WARNING: THIS METHOD MUTATES ARRAY AND CONVERTS NUMBERS TO STRING!!!
+
+//strings
+const owners = ['Jonas', 'Zach', 'Adam', 'Martha', 'Julia'];
+console.log(owners.sort());
+
+//numbers
+console.log(movements);
+console.log(movements.sort());
+
+/*
+    //return < 0       A, B -> ascending
+    //return > 0       B, A -> decreasing
+    movements.sort((a, b) => {
+      if (a > b) return 1;
+      if (b > a) return -1;
+    });
+    console.log(movements);
+
+    movements.sort((a, b) => {
+      if (a > b) return -1;
+      if (a < b) return 1;
+    });
+    console.log(movements);
+*/
+
+movements.sort((a, b) => a - b);
+console.log(movements);
+
+movements.sort((a, b) => b - a);
+console.log(movements);
