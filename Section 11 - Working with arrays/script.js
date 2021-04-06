@@ -203,6 +203,15 @@ console.log(account);
 
 console.log('---------------------SOME AND EVERY----------------------');
 console.log(movements);
-//returns a boolean
+//returns a boolean if the condition is true for at least one elemenet
 const anyDeposits = movements.some(mov => mov > 5000);
 console.log(anyDeposits);
+
+//returns a boolean if the condition is true for all elemenets
+console.log(account4.movements.every(mov => mov > 0)); //true
+
+//separate callback
+const deposit = mov => mov > 0;
+console.log(movements.some(deposit));
+console.log(movements.every(deposit));
+console.log(movements.filter(deposit));
