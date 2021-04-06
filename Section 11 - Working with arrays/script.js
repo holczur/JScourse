@@ -221,3 +221,25 @@ const arr3 = [[1, 2, 3], [4, 5, 6], 7, 8];
 const arrDeep = [[[1, 2], 3], [4, [5, 6]], 7, 8];
 console.log(arr3.flat());
 console.log(arrDeep.flat(2)); //this method's argument defines how many levels would be flat
+
+/*
+const accMov = accounts.map(acc => acc.movements);
+const allMov = accMov.flat();
+console.log(allMov);
+const overallBalance = allMov.reduce((acc, mov) => acc + mov);
+*/
+
+// faltmap manually
+const overallBalance = accounts
+  .map(acc => acc.movements)
+  .flat()
+  .reduce((acc, mov) => acc + mov);
+
+console.log(overallBalance);
+
+//.flatMap()
+const overallBalance2 = accounts
+  .flatMap(acc => acc.movements) // This can be used only for one level deep arrays
+  .reduce((acc, mov) => acc + mov);
+
+console.log(overallBalance);
