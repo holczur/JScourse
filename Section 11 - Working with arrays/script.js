@@ -276,3 +276,36 @@ console.log(movements);
 
 movements.sort((a, b) => b - a);
 console.log(movements);
+
+console.log('----more ways of creating and filling arrays----');
+console.log([1, 2, 3, 4, 5, 6, 7]);
+console.log(new Array(1, 2, 3, 4, 5, 6, 7));
+const x = new Array(7); //creates a 7 length empty array
+console.log(x); //[empty x 7]
+console.log(x.map(() => 5)); //[empty x 7] :(
+
+//.fill() MUTATES THE ORIGINAL ARRAY
+console.log(x.fill(1)); // [1, 1, 1, 1, 1, 1, 1]
+console.log(x.fill(23, 2, 5)); // [1, 1, 23, 23, 23, 1, 1]
+
+const y = Array.from({ length: 7 }, () => 1); //creates a user defined legth array, filld up with user defined values
+console.log(y);
+
+const z = Array.from({ length: 7 }, (_, i) => i + 1); //fn arguments: 1st place: current value, 2nd place: index. Unused arg. can be named: _
+console.log(z); //[1, 2, 3, 4, 5, 6, 7]
+
+//Practice: fill up an array with 100 random dice rolls
+const randomDices = Array.from(
+  { length: 100 },
+  () => Math.floor(Math.random() * 6) + 1
+);
+console.log(randomDices);
+
+//fill up array from DOM elements
+const values = Array.from(document.querySelectorAll('.value'), el =>
+  Number(el.textContent.replace('$', ''))
+); //Take all elemets with class 'value' -> get its text content, delete $ signs, and convert them to numbers
+console.log(values); // [454, 1522, 300, -155, -320]
+
+const valuesDOM = [...document.querySelectorAll('.value')]; // spread operator also can be used to get DOM elements
+console.log(valuesDOM);
