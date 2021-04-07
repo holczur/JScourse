@@ -309,3 +309,62 @@ console.log(values); // [454, 1522, 300, -155, -320]
 
 const valuesDOM = [...document.querySelectorAll('.value')]; // spread operator also can be used to get DOM elements
 console.log(valuesDOM);
+
+console.log('----Which Method and When to Use---------');
+/*
+I want...
+  to mutate original array
+    add to original:
+      .push (end)
+      .unshift (start)
+    remove from original
+      .pop (end)
+      .shift (start)
+      .splice (any)
+    others:
+      .reverse
+      .sort
+      .fill
+  
+  a new array
+    computed from original:
+      .map
+    filtered using condition:
+      .filter
+    position of original:
+      .slice()
+    adding original to other:
+      .concat
+    flattening the original:
+      .flat
+      .flatMap
+  
+  an array index
+    based on value:
+      .indexOf
+    based on test condition:
+      .findIndex
+  
+  an array element:
+    based on test condition:
+      .find
+  
+  know if array includes
+    based on value:
+      .includes
+    based on test condition:
+      .some
+      .every
+  
+  a new string
+    based on a separator operator:
+      .join
+  
+  transform to value
+    based on accumulator:
+      .reduce
+  
+  to just loop array
+    based on callback:
+      .foreach
+*/
