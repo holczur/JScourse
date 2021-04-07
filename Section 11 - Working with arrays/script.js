@@ -368,3 +368,62 @@ I want...
     based on callback:
       .foreach
 */
+console.log('---PRACTICE---');
+
+//1. Sum up all deposites from all accounts
+const bankDepositSums = accounts
+  .flatMap(acc => acc.movements)
+  .filter(mov => mov > 0)
+  .reduce((mov, acc) => mov + acc, 0);
+console.log(bankDepositSums);
+
+//2. How many deposites are at least 1000€
+// const numDeposites1000 = accounts
+//   .flatMap(acc => acc.movements)
+//   .filter(mov => mov >= 1000).length;
+// console.log(numDeposites1000);
+const numDeposites1000 = accounts
+  .flatMap(acc => acc.movements)
+  .reduce((count, cur) => (cur >= 1000 ? ++count : count), 0);
+console.log(numDeposites1000);
+
+/*
+++ operator cannot be used in this case, because altough it does the job and icrease the counter by one, but it returns the old value
+for example:
+let a = 10
+console.log(a++) // 10
+console.log(a) // 11
+console.log(++a) // 12
+
+in this type of usage we can use the prefixed ++ operator
+*/
+
+//3. create a new object for sum of all deposits and withdrawals
+const sums = accounts
+  .flatMap(acc => acc.movements)
+  .reduce(
+    (sums, cur) => {
+      //cur > 0 ? (sums.deposits += cur) : (sums.withdrawals += cur);
+      sums[cur > 0 ? 'deposits' : 'withdrawals'] += cur; //bracket notation instead of dot notation lets us to calculate property name.
+      return sums; // in code bodies we have to return value manually
+    },
+    { deposits: 0, withdrawals: 0 } //starting value -> we have defined here the object
+  );
+console.log(sums);
+
+//4. convert a string to title case
+const convertTitleCase = function (title) {
+  const capitalize = str => str[0].toUpperCase() + str.slice(1);
+  const exceptions = ['a', 'an', 'and', 'the', 'but', 'or', 'on', 'in', 'with'];
+  const tiltleCase = title
+    .toLowerCase()
+    .split(' ')
+    .map(word => (exceptions.includes(word) ? word : capitalize(word)))
+    .join(' ');
+  return capitalize(tiltleCase);
+};
+console.log(convertTitleCase('this is a nice title'));
+console.log(convertTitleCase('this is a LONG title but not too long'));
+console.log(convertTitleCase('this is the final title in this EXAMPLE'));
+console.log(convertTitleCase('and this is the last one'));
+console.log(convertTitleCase('or maybe not'));
