@@ -427,3 +427,166 @@ console.log(convertTitleCase('this is a LONG title but not too long'));
 console.log(convertTitleCase('this is the final title in this EXAMPLE'));
 console.log(convertTitleCase('and this is the last one'));
 console.log(convertTitleCase('or maybe not'));
+
+//codewars practice
+//The main idea is to count all the occurring
+//characters in a string. If you have a string like aba, then the result should be
+//{'a': 2, 'b': 1}. What if the string is empty? Then the result should be empty object literal, {}.
+
+const countSameLetters = function (str) {
+  return str
+    .toLowerCase()
+    .split('')
+    .reduce((obj, el) => {
+      if (!obj[el]) {
+        obj[el] = 1;
+      } else {
+        obj[el]++;
+      }
+      return obj;
+    }, {});
+};
+
+console.log(countSameLetters('dffdfd  fsg'));
+
+//------------------------------sudoku checker-----------------------------
+const sudokuTest1 = [
+  [5, 3, 4, 6, 7, 8, 9, 1, 2],
+  [6, 7, 2, 1, 9, 5, 3, 4, 8],
+  [1, 9, 8, 3, 4, 2, 5, 6, 7],
+  [8, 5, 9, 7, 6, 1, 4, 2, 3],
+  [4, 2, 6, 8, 5, 3, 7, 9, 1],
+  [7, 1, 3, 9, 2, 4, 8, 5, 6],
+  [9, 6, 1, 5, 3, 7, 2, 8, 4],
+  [2, 8, 7, 4, 1, 9, 6, 3, 5],
+  [3, 4, 5, 2, 8, 6, 1, 7, 9],
+];
+
+const sudokuTest2 = [
+  [5, 3, 4, 6, 7, 8, 9, 1, 2],
+  [6, 7, 2, 1, 9, 0, 3, 4, 9],
+  [1, 0, 0, 3, 4, 2, 5, 6, 0],
+  [8, 5, 9, 7, 6, 1, 0, 2, 0],
+  [4, 2, 6, 8, 5, 3, 7, 9, 1],
+  [7, 1, 3, 9, 2, 4, 8, 5, 6],
+  [9, 0, 1, 5, 3, 7, 2, 1, 4],
+  [2, 8, 7, 4, 1, 9, 6, 3, 5],
+  [3, 0, 0, 4, 8, 1, 1, 7, 9],
+];
+
+const doneOrNot = function (board) {
+  const tmp = [];
+  const count = () => (tmp.reduce((acc, cur) => acc + cur) > 0 ? 1 : 0);
+  const check = function (row) {
+    if (new Set(row).size !== row.length) {
+      tmp.push(1);
+    } else {
+      tmp.push(0);
+    }
+  };
+  //check rows
+  board.forEach(row => check(row));
+
+  //check columns
+  const columns = board[0].map((_, colIndex) =>
+    board.map(row => row[colIndex])
+  );
+  check(columns);
+
+  //check areas
+  const areas = Array.from({ length: 3 }).flatMap((_, i) =>
+    Array.from({ length: 3 }, (__, j) =>
+      Array.from({ length: 3 }).flatMap((___, k) =>
+        board[j * 3 + k].slice(i * 3, (i + 1) * 3)
+      )
+    )
+  );
+  check(areas);
+  console.log(tmp);
+  console.log(tmp.reduce((acc, cur) => acc + cur) > 0 ? false : true);
+
+  tmp.reduce((acc, cur) => acc + cur) > 0 ? false : true;
+};
+
+doneOrNot(sudokuTest1);
+/*
+//check rows
+const checkRows = function (matrix) {
+  const tmp = [];
+  matrix.forEach(row => {
+    if (new Set(row).size !== row.length) {
+      tmp.push(1);
+    } else {
+      tmp.push(0);
+    }
+  });
+};
+
+//transpose
+const checkCols = function (matrix) {
+  const columns = matrix[0].map((_, colIndex) =>
+    matrix.map(row => row[colIndex])
+  );
+  checkRows(columns);
+};
+
+//area check
+const checkAreas = function (matrix) {
+  const areas = Array.from({ length: 3 }).flatMap((_, i) =>
+    Array.from({ length: 3 }, (__, j) =>
+      Array.from({ length: 3 }).flatMap((___, k) =>
+        matrix[j * 3 + k].slice(i * 3, (i + 1) * 3)
+      )
+    )
+  );
+  checkRows(areas);
+};
+
+checkRows(sudokuTest2);
+checkCols(sudokuTest2);
+checkRows(sudokuTest2);
+
+result > 0 ? 'Try again!' : 'Finished';
+
+/*
+areas[0] = sudokuTest2[0]
+  .slice(0, 3)
+  .concat(sudokuTest2[1].slice(0, 3))
+  .concat(sudokuTest2[2].slice(0, 3));
+areas[1] = sudokuTest2[3]
+  .slice(0, 3)
+  .concat(sudokuTest2[4].slice(0, 3))
+  .concat(sudokuTest2[5].slice(0, 3));
+areas[2] = sudokuTest2[6]
+  .slice(0, 3)
+  .concat(sudokuTest2[7].slice(0, 3))
+  .concat(sudokuTest2[8].slice(0, 3));
+
+areas[3] = sudokuTest2[0]
+  .slice(3, 6)
+  .concat(sudokuTest2[1].slice(3, 6))
+  .concat(sudokuTest2[2].slice(3, 6));
+areas[4] = sudokuTest2[3]
+  .slice(3, 6)
+  .concat(sudokuTest2[4].slice(3, 6))
+  .concat(sudokuTest2[5].slice(3, 6));
+areas[5] = sudokuTest2[6]
+  .slice(3, 6)
+  .concat(sudokuTest2[7].slice(3, 6))
+  .concat(sudokuTest2[8].slice(3, 6));
+
+areas[6] = sudokuTest2[0]
+  .slice(6, 9)
+  .concat(sudokuTest2[1].slice(6, 9))
+  .concat(sudokuTest2[2].slice(6, 9));
+areas[7] = sudokuTest2[3]
+  .slice(6, 9)
+  .concat(sudokuTest2[4].slice(6, 9))
+  .concat(sudokuTest2[5].slice(6, 9));
+areas[8] = sudokuTest2[6]
+  .slice(6, 9)
+  .concat(sudokuTest2[7].slice(6, 9))
+  .concat(sudokuTest2[8].slice(6, 9));
+
+console.log(areas);
+*/
