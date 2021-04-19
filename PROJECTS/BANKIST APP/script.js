@@ -92,6 +92,8 @@ const displayMovements = function (acc, sort = false) {
       </div>`;
     containerMovements.insertAdjacentHTML('afterbegin', html);
   });
+
+  //color every second line
   [...document.querySelectorAll('.movements__row')].forEach(function (row, i) {
     if (i % 2 !== 0) {
       row.style.backgroundColor = '#fafbff';
@@ -166,8 +168,8 @@ btnLogin.addEventListener('click', function (e) {
     const day = `${now.getDate()}`.padStart(2, 0);
     const month = `${now.getMonth() + 1}`.padStart(2, 0);
     const year = now.getFullYear();
-    const hour = now.getHours();
-    const min = now.getMinutes();
+    const hour = `${now.getHours()}`.padStart(2, 0);
+    const min = `${now.getMinutes()}`.padStart(2, 0);
     labelDate.textContent = `${day}/${month}/${year}, ${hour}:${min}`;
 
     //Remove focus from input fields
@@ -194,6 +196,10 @@ btnTransfer.addEventListener('click', function (e) {
     //Transfer
     currentAccount.movements.push(-amount);
     reciverAccount.movements.push(amount);
+
+    //Date
+    currentAccount.movementsDates.push(new Date().toISOString());
+    reciverAccount.movementsDates.push(new Date().toISOString());
 
     //Update UI
     updateUI(currentAccount);
@@ -224,8 +230,11 @@ btnLoan.addEventListener('click', function (e) {
   e.preventDefault();
   const amount = Math.floor(inputLoanAmount.value);
   if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
+    //transfer & date
     currentAccount.movements.push(amount);
+    currentAccount.movementsDates.push(new Date().toISOString());
   }
+
   updateUI(currentAccount);
   inputLoanAmount.value = '';
 });
@@ -239,6 +248,6 @@ btnSort.addEventListener('click', function (e) {
 });
 
 //FAKE ALLWAYS LOGGED IN
-// currentAccount = account1;
-// updateUI(currentAccount);
-// containerApp.style.opacity = 100;
+currentAccount = account1;
+updateUI(currentAccount);
+containerApp.style.opacity = 100;
