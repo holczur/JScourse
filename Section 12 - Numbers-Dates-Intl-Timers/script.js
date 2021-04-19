@@ -88,8 +88,42 @@ console.log(+(2.345).toFixed(2)); // + operator does the type coercion
 console.log('-----------reminder operator----------------');
 console.log(5 % 2); //1
 
-//even or odd
+//even or odd & divisibility
 const isEven = n => (n % 2 === 0 ? `${n} is even` : `${n} is odd`);
 console.log(isEven(75));
 
-// divisibility
+console.log('--------------BigInt------------------');
+
+//BigInt
+//Tough numbers are stored in a binary system there are 64 bits for them
+//from these 53 are for digits and 9 for storing the position of the decimal point and the sign.
+
+console.log(Number.MAX_SAFE_INTEGER);
+console.log(2 ** 53 - 1); //numbers above this value ar not safe tu use
+console.log(2 ** 53 + 3); //
+
+console.log(45487655859847656549878695654987869464n); //...n creates BigInt number (new primitve in ES6)
+
+//operations work the same way, but there is one condition: BigInt nums cannot be mixed with regular nums
+
+console.log(454654564764678987646434n * 10000n);
+
+const huge = 5454687453126346556n;
+const num = 23;
+console.log(huge * BigInt(num));
+
+console.log(20 < 20n); // false
+console.log(20 > 20n); // false
+console.log(20 === 20n); // false
+console.log(20 >= 20n); // true
+console.log(20 <= 20n); // true
+console.log(20 == 20n); // true - type coercion
+
+//Math. functions cannot be used on BigInt
+// console.log(Math.sqrt(20n));
+
+//BigInt is a whole number
+// console.log(20.5n);
+console.log(10n / 3n); //3n -> decimal part is cut off
+
+console.log('------------DATES AND TIMES---------------');
