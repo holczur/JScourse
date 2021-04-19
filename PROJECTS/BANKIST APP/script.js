@@ -84,6 +84,11 @@ const displayMovements = function (movements, sort = false) {
       </div>`;
     containerMovements.insertAdjacentHTML('afterbegin', html);
   });
+  [...document.querySelectorAll('.movements__row')].forEach(function (row, i) {
+    if (i % 2 !== 0) {
+      row.style.backgroundColor = '#fafbff';
+    }
+  });
 };
 
 const calcDisplayBalance = function (acc) {
