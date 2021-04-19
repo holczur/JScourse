@@ -77,11 +77,17 @@ const displayMovements = function (acc, sort = false) {
     : acc.movements; //sorting is false by default. If it is true, then display movements sorted. Switching booleans by other fn
   movs.forEach(function (mov, i) {
     const type = mov > 0 ? 'deposit' : 'withdrawal';
+    const date = new Date(acc.movementsDates[i]);
+    const day = `${date.getDate()}`.padStart(2, 0);
+    const month = `${date.getMonth() + 1}`.padStart(2, 0);
+    const year = date.getFullYear();
+    const displayDate = `<div class="movements__date">${day}/${month}/${year}</div>`;
+
     const html = `
       <div class="movements__row">
         <div class="movements__type movements__type--${type}">${
       i + 1
-    } ${type}</div>
+    } ${type}</div>${displayDate}
         <div class="movements__value">${mov.toFixed(2)} €</div>
       </div>`;
     containerMovements.insertAdjacentHTML('afterbegin', html);
@@ -151,9 +157,20 @@ btnLogin.addEventListener('click', function (e) {
   if (currentAccount?.pin === +inputLoginPin.value) {
     //Display UI and mesage
     containerApp.style.opacity = 100;
+
     labelWelcome.textContent = `Welcome back ${
       currentAccount.owner.split(' ')[0]
     }!`;
+    //Display current date
+    const now = new Date();
+    const day = `${now.getDate()}`.padStart(2, 0);
+    const month = `${now.getMonth() + 1}`.padStart(2, 0);
+    const year = now.getFullYear();
+    const hour = now.getHours();
+    const min = now.getMinutes();
+    labelDate.textContent = `${day}/${month}/${year}, ${hour}:${min}`;
+
+    //Remove focus from input fields
     inputLoginUsername.value = inputLoginPin.value = '';
     inputLoginPin.blur();
     updateUI(currentAccount);
@@ -222,15 +239,6 @@ btnSort.addEventListener('click', function (e) {
 });
 
 //FAKE ALLWAYS LOGGED IN
-currentAccount = account1;
-updateUI(currentAccount);
-containerApp.style.opacity = 100;
-
-const now = new Date();
-const day = `${now.getDate()}`.padStart(2, 0);
-const month = `${now.getMonth() + 1}`.padStart(2, 0);
-const year = now.getFullYear();
-const hour = now.getHours();
-const min = now.getMinutes();
-
-labelDate.textContent = `${day}/${month}/${year}, ${hour}:${min}`;
+// currentAccount = account1;
+// updateUI(currentAccount);
+// containerApp.style.opacity = 100;
