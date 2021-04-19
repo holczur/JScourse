@@ -69,10 +69,12 @@ const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
 //
-const displayMovements = function (movements, sort = false) {
+const displayMovements = function (acc, sort = false) {
   containerMovements.innerHTML = '';
 
-  const movs = sort ? movements.slice().sort((a, b) => a - b) : movements; //sorting is false by default. If it is true, then display movements sorted. Switching booleans by other fn
+  const movs = sort
+    ? acc.movements.slice().sort((a, b) => a - b)
+    : acc.movements; //sorting is false by default. If it is true, then display movements sorted. Switching booleans by other fn
   movs.forEach(function (mov, i) {
     const type = mov > 0 ? 'deposit' : 'withdrawal';
     const html = `
@@ -132,7 +134,7 @@ createUserNames(accounts);
 
 const updateUI = function (acc) {
   //Display movements
-  displayMovements(acc.movements);
+  displayMovements(acc);
   //Display balance
   calcDisplayBalance(acc);
   //display summary
@@ -215,7 +217,7 @@ btnLoan.addEventListener('click', function (e) {
 let sorted = false;
 btnSort.addEventListener('click', function (e) {
   e.preventDefault();
-  displayMovements(currentAccount.movements, !sorted); // launch fn with opposite value of "sorted"
+  displayMovements(currentAccount, !sorted); // launch fn with opposite value of "sorted"
   sorted = !sorted; //change value to its opposite //will change every time btnSort is clicked
 });
 
