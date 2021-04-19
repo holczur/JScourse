@@ -84,3 +84,12 @@ console.log((2.7).toFixed(0)); //'3' -> returns a string
 console.log((2.7).toFixed(3)); //'2.700' -> the parameter defines the fragmentation's length
 console.log((2.345).toFixed(2)); //'2.35' -> it rounds like Math.round()
 console.log(+(2.345).toFixed(2)); // + operator does the type coercion
+
+console.log('-----------reminder operator----------------');
+console.log(5 % 2); //1
+
+//even or odd
+const isEven = n => (n % 2 === 0 ? `${n} is even` : `${n} is odd`);
+console.log(isEven(75));
+
+// divisibility
