@@ -88,9 +88,11 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
-// For date and time internatialization
+//---------------------------- CODE STARTS HERE --------------------------
+
+// Date and time format, internationalization
 const now = new Date();
-const options = {
+const dateOptions = {
   hour: 'numeric',
   minute: 'numeric',
   day: 'numeric',
@@ -98,7 +100,6 @@ const options = {
   year: 'numeric',
 };
 
-//
 const formatMovementDate = function (date, locale) {
   const calcDaysPassed = (date1, date2) =>
     Math.round(Math.abs((date2 - date1) / (1000 * 60 * 60 * 24)));
@@ -109,30 +110,40 @@ const formatMovementDate = function (date, locale) {
   if (daysPassed <= 7) return `${daysPassed} days ago`;
 
   return new Intl.DateTimeFormat(locale).format(date);
-
-  // const day = `${date.getDate()}`.padStart(2, 0);
-  // const month = `${date.getMonth() + 1}`.padStart(2, 0);
-  // const year = date.getFullYear();
-  // return `<div class="movements__date">${day}/${month}/${year}</div>`;
 };
 
+//Internationalize currency
+const formatCurrency = function (value, locale, currency) {
+  return new Intl.NumberFormat(locale, {
+    style: 'currency',
+    currency: currency,
+  }).format(value);
+};
+
+//Display movements
 const displayMovements = function (acc, sort = false) {
   containerMovements.innerHTML = '';
-
+  // Sorting logic
   const movs = sort
     ? acc.movements.slice().sort((a, b) => a - b)
-    : acc.movements; //sorting is false by default. If it is true, then display movements sorted. Switching booleans by other fn
+    : acc.movements;
+
+  //check if movement is deposit or withdrawal, create date for each movement
   movs.forEach(function (mov, i) {
     const type = mov > 0 ? 'deposit' : 'withdrawal';
     const date = new Date(acc.movementsDates[i]);
-    const displayDate = formatMovementDate(date, acc.locale);
 
+    //Insert HTML code for each movement
     const html = `
       <div class="movements__row">
         <div class="movements__type movements__type--${type}">${
       i + 1
-    } ${type}</div>${displayDate}
-        <div class="movements__value">${mov.toFixed(2)} €</div>
+    } ${type}</div>${formatMovementDate(date, acc.locale)}
+        <div class="movements__value">${formatCurrency(
+          mov,
+          acc.locale,
+          acc.currency
+        )}</div>
       </div>`;
     containerMovements.insertAdjacentHTML('afterbegin', html);
   });
@@ -145,11 +156,17 @@ const displayMovements = function (acc, sort = false) {
   });
 };
 
+//Display balance
 const calcDisplayBalance = function (acc) {
   acc.balance = acc.movements.reduce((acc, mov) => acc + mov, 0);
-  labelBalance.textContent = `${acc.balance.toFixed(2)} €`;
+  labelBalance.textContent = formatCurrency(
+    acc.balance,
+    acc.locale,
+    acc.currency
+  );
 };
 
+//Create user account
 const createUserNames = function (accs) {
   accs.forEach(function (acc) {
     // Take each account
@@ -161,17 +178,25 @@ const createUserNames = function (accs) {
   });
 };
 
+//Summary line for movements
 const calcDisplaySummary = function (acc) {
+  //Summary of incomes
   const incomes = acc.movements
     .filter(mov => mov > 0)
     .reduce((acc, mov) => acc + mov, 0);
-  labelSumIn.textContent = `${incomes.toFixed(2)}€`;
+  labelSumIn.textContent = formatCurrency(incomes, acc.locale, acc.currency);
 
+  //Summary of outcomes
   const outcomes = acc.movements
     .filter(mov => mov < 0)
     .reduce((acc, mov) => acc + mov, 0);
-  labelSumOut.textContent = `${Math.abs(outcomes.toFixed(2))}€`;
+  labelSumOut.textContent = formatCurrency(
+    Math.abs(outcomes),
+    acc.locale,
+    acc.currency
+  );
 
+  //Summary of interest
   const interest = acc.movements
     .filter(mov => mov > 0)
     .map(deposit => (deposit * currentAccount.interestRate) / 100) //interest rate
@@ -179,17 +204,19 @@ const calcDisplaySummary = function (acc) {
       return int >= 1; //only paid if amount is >= 1€
     })
     .reduce((acc, dep) => acc + dep, 0);
-  labelSumInterest.textContent = `${interest.toFixed(2)} €`;
+  labelSumInterest.textContent = formatCurrency(
+    interest,
+    acc.locale,
+    acc.currency
+  );
 };
 
+//No database at this time to store accounts, so new users going to lost and hardcoded are recreeated each time the page reloads
 createUserNames(accounts);
 
 const updateUI = function (acc) {
-  //Display movements
   displayMovements(acc);
-  //Display balance
   calcDisplayBalance(acc);
-  //display summary
   calcDisplaySummary(acc);
 };
 
@@ -207,16 +234,11 @@ btnLogin.addEventListener('click', function (e) {
     labelWelcome.textContent = `Welcome back ${
       currentAccount.owner.split(' ')[0]
     }!`;
-    //Display current date
-    // const now = new Date();
-    // const day = `${now.getDate()}`.padStart(2, 0);
-    // const month = `${now.getMonth() + 1}`.padStart(2, 0);
-    // const year = now.getFullYear();
-    // const hour = `${now.getHours()}`.padStart(2, 0);
-    // const min = `${now.getMinutes()}`.padStart(2, 0);
+
+    //Display date according to user account
     labelDate.textContent = Intl.DateTimeFormat(
       currentAccount.locale,
-      options
+      dateOptions
     ).format(now);
 
     //Remove focus from input fields
