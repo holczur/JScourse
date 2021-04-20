@@ -247,3 +247,14 @@ console.log(
   new Intl.NumberFormat('en-GB', options2).format(num2)
 );
 console.log('Germany: ', new Intl.NumberFormat('de-DE', options2).format(num2));
+
+console.log('-----------Tiemrs-------------');
+const ingerdients = ['olives', 'spinach'];
+const pizzaTimer = setTimeout(
+  (ing1, ing2) => console.log(`Here is your pizza with ${ing1} and ${ing2}!`),
+  3000,
+  ...ingerdients
+);
+console.log('Order recived');
+
+if (ingerdients.includes('spinach')) clearInterval(pizzaTimer);
