@@ -210,3 +210,39 @@ const calcDaysPassed = (date1, date2) =>
   Math.abs((date2 - date1) / (1000 * 60 * 60 * 24));
 const days1 = calcDaysPassed(new Date(2037, 3, 14), new Date(2037, 3, 24));
 console.log(days1);
+
+console.log('-----------Intl Nums---------------');
+const num2 = 594664456.45;
+console.log('Hungary: ', new Intl.NumberFormat('hu-HU').format(num2));
+console.log('Great-Britain: ', new Intl.NumberFormat('en-GB').format(num2));
+console.log('Germany: ', new Intl.NumberFormat('de-DE').format(num2));
+console.log('Syria: ', new Intl.NumberFormat('ar-SY').format(num2));
+console.log(navigator.language);
+console.log(navigator);
+
+const options = {
+  style: 'unit',
+  unit: 'mile-per-hour',
+};
+console.log(
+  'Hungary: ',
+  new Intl.NumberFormat(navigator.language, options).format(num2)
+);
+console.log(
+  'Great-Britain: ',
+  new Intl.NumberFormat('en-GB', options).format(num2)
+);
+console.log('Germany: ', new Intl.NumberFormat('de-DE', options).format(num2));
+
+const options2 = {
+  style: 'currency',
+  currency: 'EUR',
+  useGrouping: false,
+};
+
+console.log('Hungary: ');
+console.log(
+  'Great-Britain: ',
+  new Intl.NumberFormat('en-GB', options2).format(num2)
+);
+console.log('Germany: ', new Intl.NumberFormat('de-DE', options2).format(num2));
