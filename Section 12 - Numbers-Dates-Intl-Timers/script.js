@@ -248,7 +248,7 @@ console.log(
 );
 console.log('Germany: ', new Intl.NumberFormat('de-DE', options2).format(num2));
 
-console.log('-----------Tiemrs-------------');
+console.log('-----------Timers-------------');
 const ingerdients = ['olives', 'spinach'];
 const pizzaTimer = setTimeout(
   (ing1, ing2) => console.log(`Here is your pizza with ${ing1} and ${ing2}!`),
@@ -258,3 +258,19 @@ const pizzaTimer = setTimeout(
 console.log('Order recived');
 
 if (ingerdients.includes('spinach')) clearInterval(pizzaTimer);
+
+//intervals
+const interval = setInterval(function () {
+  const now = new Date();
+  console.log(now);
+}, 1000);
+clearInterval(interval);
+
+const timer = setInterval(() => {
+  const now = new Date();
+  const hour = now.getHours();
+  const min = now.getMinutes();
+  const sec = now.getSeconds();
+  console.log(`${hour}:${min}:${sec}`);
+}, 1000);
+clearInterval(timer);
