@@ -299,12 +299,17 @@ btnLoan.addEventListener('click', function (e) {
   e.preventDefault();
   const amount = Math.floor(inputLoanAmount.value);
   if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
-    //transfer & date
-    currentAccount.movements.push(amount);
-    currentAccount.movementsDates.push(new Date().toISOString());
+    document.querySelector('.operation--loan h2').textContent =
+      'Please wait...';
+    setTimeout(function () {
+      //transfer & date
+      currentAccount.movements.push(amount);
+      currentAccount.movementsDates.push(new Date().toISOString());
+      document.querySelector('.operation--loan h2').textContent =
+        'Request loan';
+      updateUI(currentAccount);
+    }, 3000);
   }
-
-  updateUI(currentAccount);
   inputLoanAmount.value = '';
 });
 
