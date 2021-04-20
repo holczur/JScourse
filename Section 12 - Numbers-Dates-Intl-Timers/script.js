@@ -238,6 +238,7 @@ const options2 = {
   style: 'currency',
   currency: 'EUR',
   useGrouping: false,
+  //for more see documentation on MDN
 };
 
 console.log('Hungary: ');
