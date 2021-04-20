@@ -220,8 +220,38 @@ const updateUI = function (acc) {
   calcDisplaySummary(acc);
 };
 
+//Timer
+const startLogoutTimer = function () {
+  const tick = function () {
+    const min = String(Math.trunc(time / 60)).padStart(2, 0);
+    const sec = String(time % 60).padStart(2, 0);
+
+    //In each call, print the remaining time to UI
+    labelTimer.textContent = `${min}:${sec}`;
+    time--;
+    //When 0 second, stop timer and log out user
+    if (time === -1) {
+      clearInterval(timer);
+      containerApp.style.opacity = 0;
+      labelWelcome.textContent = 'Log in to get started';
+    }
+  };
+  //Set time to 5 minutes
+  let time = 300;
+
+  //Call the timer every second
+  tick();
+  timer = setInterval(tick, 1000);
+  return timer;
+};
+
+const resetTimer = function () {
+  clearInterval(timer);
+  timer = startLogoutTimer();
+};
+
 //Event handler - LOGIN
-let currentAccount;
+let currentAccount, timer;
 btnLogin.addEventListener('click', function (e) {
   e.preventDefault();
   currentAccount = accounts.find(
@@ -245,6 +275,10 @@ btnLogin.addEventListener('click', function (e) {
     inputLoginUsername.value = inputLoginPin.value = '';
     inputLoginPin.blur();
     updateUI(currentAccount);
+
+    //Timer
+    if (timer) clearInterval(timer);
+    timer = startLogoutTimer();
   }
 });
 
@@ -275,6 +309,9 @@ btnTransfer.addEventListener('click', function (e) {
     inputTransferAmount.value = inputTransferTo.value = '';
     inputTransferTo.blur();
     inputTransferAmount.blur();
+
+    //Reset timer
+    resetTimer();
   }
 });
 
@@ -311,6 +348,8 @@ btnLoan.addEventListener('click', function (e) {
     }, 3000);
   }
   inputLoanAmount.value = '';
+  //Reset timer
+  resetTimer();
 });
 
 //Event handler - SORT
@@ -320,8 +359,3 @@ btnSort.addEventListener('click', function (e) {
   displayMovements(currentAccount, !sorted); // launch fn with opposite value of "sorted"
   sorted = !sorted; //change value to its opposite //will change every time btnSort is clicked
 });
-
-//FAKE ALLWAYS LOGGED IN
-currentAccount = account1;
-updateUI(currentAccount);
-containerApp.style.opacity = 100;
