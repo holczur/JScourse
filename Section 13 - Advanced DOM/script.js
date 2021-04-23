@@ -46,3 +46,56 @@ document
 
 //the older way:
 //message.parentElement.removeChild(message)
+
+//Style attributes
+//these will shown as inline styles
+message.style.backgroundColor = '#37383d';
+message.style.width = '106%';
+
+//inline style values can be reached
+console.log(message.style.width); //'106%'
+//but values from stylsheet cannot reached the way like above
+console.log(message.style.color); //int he consol we will see an empty line
+
+//to reach stylsheet values use getComputedStyle()
+console.log(getComputedStyle(message).height); //'50px'
+
+//to get a number from '50px' use Number.parseFloat() or .parseInt()
+//after that we can add 30 and 'px' that will cause the value to be a string again
+message.style.height =
+  Number.parseFloat(getComputedStyle(message).height, 10) + 30 + 'px';
+
+console.log(getComputedStyle(message).height); //'80px'
+
+//We have acces to the CSS root values as well
+//:root values are stored in the document object
+document.documentElement.style.setProperty('--color-primary', 'orangered');
+
+//Attributes with standard values
+const logo = document.querySelector('.nav__logo');
+console.log(logo.alt);
+console.log(logo.src);
+console.log(logo.className);
+console.log(logo.designer); // undefined -> It is not a standard attribute
+
+logo.alt = 'I changed this from JS';
+
+//Non-standard values
+console.log(logo.getAttribute('designer'));
+logo.setAttribute('company', 'Bankist'); //new attribute will be created in HTML element
+
+//relative vs absolute path
+console.log(logo.getAttribute('src')); //relative path
+console.log(logo.src); //absolute path
+
+//Data attributes
+//defined attributes in HTML that starts with data-something-optional-...
+console.log(logo.dataset.versionNumber); //3.0
+
+//Classes
+logo.classList.add('c', 'j');
+logo.classList.remove('j');
+logo.classList.toggle('c');
+logo.classList.contains('c');
+//Dont use -> will overwrite all classes
+// logo.className = 'something'
