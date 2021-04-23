@@ -44,3 +44,11 @@ document
   .addEventListener('click', function () {
     message.remove();
   });
+
+//Smooth scroll
+const section1 = document.getElementById('section--1');
+const btnScrollTo = document.querySelector('.btn--scroll-to');
+
+btnScrollTo.addEventListener('click', () =>
+  section1.scrollIntoView({ behavior: 'smooth' })
+);
