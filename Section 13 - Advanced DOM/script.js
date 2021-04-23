@@ -99,3 +99,37 @@ logo.classList.toggle('c');
 logo.classList.contains('c');
 //Dont use -> will overwrite all classes
 // logo.className = 'something'
+
+//Smooth Scroll
+const btnScrollTo = document.querySelector('.btn--scroll-to');
+const section1 = document.querySelector('#section--1');
+
+btnScrollTo.addEventListener('click', function (e) {
+  //to get info about elements position and dimensions
+  const s1coords = section1.getBoundingClientRect();
+  console.log(s1coords); // DOMRect {x: 0, y: 689, width: 1103, height: 1398, top: 689, …}
+
+  console.log(e.target.getBoundingClientRect());
+
+  //see the actual scroll position
+  console.log('Current scroll (X/Y)', window.pageXOffset, window.pageYOffset);
+
+  //se the actual width and height of viewport
+  console.log(
+    document.documentElement.clientHeight,
+    document.documentElement.clientWidth
+  );
+
+  //set the destionation: current position + current scroll
+  //to set up a smooth scroll, we have to set these parameters as object values
+  /*
+  window.scrollTo({
+    left: s1coords.left + window.pageXOffset,
+    top: s1coords.top + window.pageYOffset,
+    behavior: 'smooth',
+  });
+  */
+
+  //THE MODERN WAY
+  section1.scrollIntoView({ behavior: 'smooth' });
+});
