@@ -9,7 +9,7 @@ const btnsOpenModal = document.querySelectorAll('.btn--show-modal');
 const section1 = document.getElementById('section--1');
 const btnScrollTo = document.querySelector('.btn--scroll-to');
 
-const navLinks = document.querySelectorAll('.nav__link');
+const navLinks = document.querySelector('.nav__links');
 
 ///////////////////////////////////////
 // Modal window
@@ -39,13 +39,12 @@ document.addEventListener('keydown', function (e) {
 });
 
 //Page navigation
-navLinks.forEach(function (el) {
-  el.addEventListener('click', function (e) {
+navLinks.addEventListener('click', function (e) {
+  if (e.target.classList.contains('nav__link')) {
     e.preventDefault();
-    const id = this.getAttribute('href');
-    console.log(id);
+    const id = e.target.getAttribute('href');
     document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
-  });
+  }
 });
 
 //Smooth scroll
