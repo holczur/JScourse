@@ -195,8 +195,10 @@ document.querySelector('.nav').addEventListener('click', function (e) {
 //If the target element meets the matching requirements
 //we can implement the function that we want.
 //By this way all child element will have the functionality, but only the parent element will listen to the event.
+//What's more we can use this technique to apply event handler to elements that don't exist yet on the page.
 document.querySelector('.nav__links').addEventListener('click', function (e) {
   console.log(e.target);
+  //Matching strategy (to avoid any action if user clicks on wrong element)
   if (e.target.classList.contains('nav__link')) {
     e.preventDefault();
     const id = e.target.getAttribute('href');
