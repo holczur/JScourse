@@ -144,6 +144,7 @@ const alertH1 = function (e) {
 
 h1.addEventListener('mouseenter', alertH1);
 
+/*
 //Event Propagation
 const randomInt = (min, max) =>
   Math.floor(Math.random() * (max - min + 1) + min);
@@ -169,4 +170,36 @@ document.querySelector('.nav').addEventListener('click', function (e) {
   console.log('Target:', e.target, e.currentTarget);
 
   //Stop propagation -> e.stopPropagation()
+});
+*/
+//Event delegation
+
+//This code is working, but not efficient, bec. it uses three event listener
+//If there would be thousands of links that could cause performance issues
+// const navLinks = document.querySelectorAll('.nav__link');
+// navLinks.forEach(function (el) {
+//   el.addEventListener('click', function (e) {
+//     e.preventDefault();
+//     const id = this.getAttribute('href');
+//     console.log(id);
+//     document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
+//   });
+// });
+
+//To delegate event:
+//1. Add eventListener to common parent element
+//2. Determine what element originated the event
+
+//We set up only one event listener on the parent, from where we will know
+//that which child was clicked -> e.target
+//If the target element meets the matching requirements
+//we can implement the function that we want.
+//By this way all child element will have the functionality, but only the parent element will listen to the event.
+document.querySelector('.nav__links').addEventListener('click', function (e) {
+  console.log(e.target);
+  if (e.target.classList.contains('nav__link')) {
+    e.preventDefault();
+    const id = e.target.getAttribute('href');
+    document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
+  }
 });
