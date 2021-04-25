@@ -9,6 +9,8 @@ const btnsOpenModal = document.querySelectorAll('.btn--show-modal');
 const section1 = document.getElementById('section--1');
 const btnScrollTo = document.querySelector('.btn--scroll-to');
 const navLinks = document.querySelector('.nav__links');
+const navItems = document.querySelector('.nav_item');
+const nav = document.querySelector('.nav');
 
 //for tabbed component
 const tabs = document.querySelectorAll('.operations__tab');
@@ -88,3 +90,21 @@ tabsContainer.addEventListener('click', function (e) {
     .querySelector(`.operations__content--${clicked.dataset.tab}`)
     .classList.add('operations__content--active');
 });
+
+//Menu fade animations
+
+const handleHover = function (e) {
+  if (e.target.classList.contains('nav__link')) {
+    const link = e.target;
+    const sibilings = link.closest('.nav').querySelectorAll('.nav__link');
+    const logo = link.closest('.nav').querySelector('img');
+
+    sibilings.forEach(el => {
+      if (el !== link) el.style.opacity = this;
+    });
+    logo.style.opacity = this;
+  }
+};
+
+nav.addEventListener('mouseover', handleHover.bind(0.5));
+nav.addEventListener('mouseout', handleHover.bind(1));
