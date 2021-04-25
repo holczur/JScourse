@@ -230,6 +230,7 @@ console.log(h1.nextElementSibling); //<h4>...</h4>
 
 //to fin all: look for parent's children
 console.log(h1.parentElement.children);
+//usecase eg.: resize everything under h1 except h1
 [...h1.parentElement.children].forEach(function (el) {
   if (el !== h1) el.style.transform = 'scale(0.5)';
 });

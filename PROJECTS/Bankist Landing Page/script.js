@@ -8,8 +8,12 @@ const btnsOpenModal = document.querySelectorAll('.btn--show-modal');
 //for smooth scroll
 const section1 = document.getElementById('section--1');
 const btnScrollTo = document.querySelector('.btn--scroll-to');
-
 const navLinks = document.querySelector('.nav__links');
+
+//for tabbed component
+const tabs = document.querySelectorAll('.operations__tab');
+const tabsContainer = document.querySelector('.operations__tab-container');
+const tabsContent = document.querySelectorAll('.operations__content');
 
 ///////////////////////////////////////
 // Modal window
@@ -64,3 +68,23 @@ document
   .addEventListener('click', function () {
     message.remove();
   });
+
+// Tabbed component
+tabsContainer.addEventListener('click', function (e) {
+  const clicked = e.target.closest('.operations__tab');
+
+  //Guard clause
+  if (!clicked) return;
+
+  //Active tab
+  tabs.forEach(tab => tab.classList.remove('operations__tab--active'));
+  clicked.classList.add('operations__tab--active');
+
+  //Active area
+  tabsContent.forEach(content =>
+    content.classList.remove('operations__content--active')
+  );
+  document
+    .querySelector(`.operations__content--${clicked.dataset.tab}`)
+    .classList.add('operations__content--active');
+});
