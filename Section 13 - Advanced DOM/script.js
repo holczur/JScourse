@@ -205,3 +205,31 @@ document.querySelector('.nav__links').addEventListener('click', function (e) {
     document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
   }
 });
+
+//DOM TRAVERSING
+//selecting elemets based on other elemets
+
+//Going downwards: child
+//elements with 'highlight' class but under h1 won't be selected.
+console.log(h1.querySelectorAll('.highlight')); //NodeList(2)
+console.log(h1.childNodes); //NodeList(9)
+console.log(h1.children); //HTLLCollection(3)
+h1.firstElementChild.style.color = 'white';
+h1.lastElementChild.style.color = 'orangered';
+
+//Going upwards: parents
+console.log(h1.parentNode); //<div class="header__title">...</div>
+console.log(h1.parentElement); //<div class="header__title">...</div>
+console.log(h1.closest('.header'));
+h1.closest('.header').style.background = 'var(--gradient-secondary)';
+
+//Going sideways: sibilings
+//finds only the first sibiling
+console.log(h1.previousElementSibling); //null
+console.log(h1.nextElementSibling); //<h4>...</h4>
+
+//to fin all: look for parent's children
+console.log(h1.parentElement.children);
+[...h1.parentElement.children].forEach(function (el) {
+  if (el !== h1) el.style.transform = 'scale(0.5)';
+});
