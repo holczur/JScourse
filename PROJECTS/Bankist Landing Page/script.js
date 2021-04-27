@@ -161,3 +161,85 @@ const imageObserver = new IntersectionObserver(loadImg, {
   rootMargin: '200px', //hide lazy loading from user - delete if blur transition should be shown
 });
 imgTargets.forEach(img => imageObserver.observe(img));
+
+//testimonial slider
+const slider = function () {
+  const leftBtn = document.querySelector('.slider__btn--left');
+  const rightBtn = document.querySelector('.slider__btn--right');
+  const slides = document.querySelectorAll('.slide');
+  const dotContainer = document.querySelector('.dots');
+
+  let curSlide = 0;
+  const maxSlide = slides.length - 1;
+
+  const goToSlide = function (slideNum) {
+    slides.forEach(
+      (s, i) => (s.style.transform = `translateX(${100 * (i - slideNum)}%)`)
+    );
+  };
+
+  //Functions
+  const nextSlide = function () {
+    if (curSlide === maxSlide) {
+      curSlide = 0;
+    } else {
+      curSlide++;
+    }
+    goToSlide(curSlide);
+    activateDot(curSlide);
+  };
+
+  const prevSlide = function () {
+    if (curSlide === 0) {
+      curSlide = maxSlide;
+    } else {
+      curSlide--;
+    }
+    goToSlide(curSlide);
+    activateDot(curSlide);
+  };
+
+  const createDots = function () {
+    slides.forEach(function (_, i) {
+      dotContainer.insertAdjacentHTML(
+        'beforeend',
+        `<button class="dots__dot" data-slide="${i}"></button>`
+      );
+    });
+  };
+
+  const activateDot = function (slide) {
+    document
+      .querySelectorAll('.dots__dot')
+      .forEach(dot => dot.classList.remove('dots__dot--active'));
+    document
+      .querySelector(`.dots__dot[data-slide="${slide}"]`)
+      .classList.add('dots__dot--active');
+  };
+
+  const init = function () {
+    goToSlide(0);
+    createDots();
+    activateDot(0);
+  };
+
+  init();
+
+  //Event handlers
+  rightBtn.addEventListener('click', nextSlide);
+  leftBtn.addEventListener('click', prevSlide);
+
+  document.addEventListener('keydown', function (e) {
+    (e.key === 'ArrowRight' && nextSlide()) ||
+      (e.key === 'ArrowLeft' && prevSlide());
+  });
+
+  dotContainer.addEventListener('click', function (e) {
+    if (e.target.classList.contains('dots__dot')) {
+      const { slide } = e.target.dataset;
+      goToSlide(slide);
+      activateDot(slide);
+    }
+  });
+};
+slider();
