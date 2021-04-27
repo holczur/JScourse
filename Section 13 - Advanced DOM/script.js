@@ -234,3 +234,14 @@ console.log(h1.parentElement.children);
 [...h1.parentElement.children].forEach(function (el) {
   if (el !== h1) el.style.transform = 'scale(0.5)';
 });
+
+//sticky navigation
+//BAD PERFORMANCE - AVOID USING THIS!
+const initialCoords = section1.getBoundingClientRect();
+const nav = document.querySelector('.nav');
+
+window.addEventListener('scroll', function (e) {
+  console.log(window.scrollY, initialCoords);
+  if (window.scrollY > initialCoords.top) nav.classList.add('sticky');
+  else nav.classList.remove('sticky');
+});
