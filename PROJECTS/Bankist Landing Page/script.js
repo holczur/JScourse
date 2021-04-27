@@ -17,6 +17,8 @@ const tabs = document.querySelectorAll('.operations__tab');
 const tabsContainer = document.querySelector('.operations__tab-container');
 const tabsContent = document.querySelectorAll('.operations__content');
 
+//for revealing sections
+const allSections = document.querySelectorAll('section');
 ///////////////////////////////////////
 // Modal window
 
@@ -123,3 +125,9 @@ const headerObserver = new IntersectionObserver(stickyNav, {
   rootMargin: `-${navHeight}px`,
 });
 headerObserver.observe(header);
+
+//Reveal sections
+const revealSection = function (entries, observer) {};
+
+const sectionObserver = new IntersectionObserver(revealSection, {});
+allSections.forEach(function (section) {});
