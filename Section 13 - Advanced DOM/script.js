@@ -237,11 +237,39 @@ console.log(h1.parentElement.children);
 
 //sticky navigation
 //BAD PERFORMANCE - AVOID USING THIS!
-const initialCoords = section1.getBoundingClientRect();
-const nav = document.querySelector('.nav');
+// const initialCoords = section1.getBoundingClientRect();
+// const nav = document.querySelector('.nav');
 
-window.addEventListener('scroll', function (e) {
-  console.log(window.scrollY, initialCoords);
-  if (window.scrollY > initialCoords.top) nav.classList.add('sticky');
+// window.addEventListener('scroll', function (e) {
+//   console.log(window.scrollY, initialCoords);
+//   if (window.scrollY > initialCoords.top) nav.classList.add('sticky');
+//   else nav.classList.remove('sticky');
+// });
+
+//intersectionObserver()
+const nav = document.querySelector('.nav');
+const navHeight = nav.getBoundingClientRect().height;
+const obsCallback = function (entries, observer) {
+  entries.forEach(entry => {
+    console.log(entry);
+  });
+};
+const obsOptions = {
+  root: null, // null = viewport
+  threshold: [0, 0.2], //0 = when enter/leave completeley; 0,1 = enter/leave + 10%; 1 = fill viewport //when in array -> observe each point
+};
+const observer = new IntersectionObserver(obsCallback, obsOptions);
+observer.observe(section1);
+
+const stickyNav = function (entries) {
+  const [entry] = entries;
+  if (!entry.isIntersecting) nav.classList.add('sticky');
   else nav.classList.remove('sticky');
+};
+
+const headerObserver = new IntersectionObserver(stickyNav, {
+  root: null,
+  threshold: 0,
+  rootMargin: `-${navHeight}px`, //'-90px', //after/before reach threshold
 });
+headerObserver.observe(header);
