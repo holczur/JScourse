@@ -100,7 +100,7 @@ const handleHover = function (e) {
     const logo = link.closest('.nav').querySelector('img');
 
     sibilings.forEach(el => {
-      if (el !== link) el.style.opacity = this;
+      if (el !== link) el.style.opacity = this; //this keyword will be equal to the value that we pass for .bind() parameter
     });
     logo.style.opacity = this;
   }
