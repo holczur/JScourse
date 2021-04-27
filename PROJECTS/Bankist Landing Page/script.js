@@ -130,4 +130,6 @@ headerObserver.observe(header);
 const revealSection = function (entries, observer) {};
 
 const sectionObserver = new IntersectionObserver(revealSection, {});
-allSections.forEach(function (section) {});
+allSections.forEach(function (section) {
+  section.classList.add('section--hidden');
+});
